@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Button Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: #333;
+            position: relative;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+        }
+        .game-container {
+            margin-top: 20px;
+        }
+        .hidden-gift, .sad-image {
+            display: none;
+            width: 400px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+        }
+        .game-button {
+            position: absolute;
+            padding: 15px 30px;
+            font-size: 1.5em; /* Increased button size */
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.5s ease; /* Slow the button movement */
+        }
+        .game-button:hover {
+            background-color: #218838;
+        }
+        #birthday-message, #lose-message {
+            display: none;
+            font-size: 25em;
+            color: #e91e63;
+            margin-top: 20px;
+        }
+        #lose-message {
+            color: #f44336;
+        }
+        #nextButton {
+            display: none;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #nextButton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 id="gameTitle">Catch the Button to Win the Gift!</h1>
+        <button class="game-button" id="gameButton" onclick="winGame()">Click Me!</button>
+        <img id="gift-image" class="hidden-gift" src="Images/gift.jpg" alt="Gift" onclick="showBirthdayMessage()">
+        <img id="sad-image" class="sad-image" src="Images/sad_image.jpg" alt="Sad Face">
+        <div id="birthday-message">You're Gayyy!!!</div>
+        <div id="lose-message">Skill Issue</div>
+        <button id="nextButton" onclick="window.location.href='another_page.html'">Go to Next Page</button> <!-- Next page button -->
+    </div>
+
+    <script>
+        const button = document.getElementById('gameButton');
+        const giftImage = document.getElementById('gift-image');
+        const gameTitle = document.getElementById('gameTitle');
+        const birthdayMessage = document.getElementById('birthday-message');
+        const loseMessage = document.getElementById('lose-message');
+        const sadImage = document.getElementById('sad-image');
+        const nextButton = document.getElementById('nextButton');
+        
+        let clickCount = 0;
+        const maxClicks = 15;
+
+        // Function to move the button to a random position slowly with a delay before the next move
+        function moveButton() {
+            if (clickCount >= maxClicks) return;
+
+            const maxX = window.innerWidth - button.offsetWidth - 20; // Ensuring button stays within bounds
+            const maxY = window.innerHeight - button.offsetHeight - 20;
+
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            // Gradual movement of the button
+            button.style.transition = 'all 0.5s ease'; // Ensure smooth transition
+            button.style.left = `${randomX}px`;
+            button.style.top = `${randomY}px`;
+        }
+
+        // Function to handle winning the game
+        function winGame() {
+            clickCount++; // Increment click count
+            if (clickCount >= maxClicks) {
+                loseGame(); // If clicks exceed max, user loses
+                return;
+            }
+            // Hide the button and title, show the gift
+            button.style.display = 'none';
+            gameTitle.style.display = 'none';
+            giftImage.style.display = 'block';
+        }
+
+        // Function to show the birthday message
+        function showBirthdayMessage() {
+            // Hide the gift, display the birthday message
+            giftImage.style.display = 'none';
+            birthdayMessage.style.display = 'block';
+            // Show the "Next Page" button
+            nextButton.style.display = 'block';
+        }
+
+        // Function to handle losing the game
+        function loseGame() {
+            button.style.display = 'none';
+            gameTitle.style.display = 'none';
+            loseMessage.style.display = 'block';
+            sadImage.style.display = 'block';
+        }
+
+        // Attach the movement to the button's mouseover event with a slight delay
+        let moveDelay = false;
+        button.addEventListener('mouseover', () => {
+            if (!moveDelay) {
+                moveDelay = true;
+                setTimeout(() => {
+                    moveButton();
+                    moveDelay = false;
+                }, 150); // 800ms delay to give time for the player to click
+            }
+        });
+
+        // Check if the user has clicked 15 times and display the lose message
+        setInterval(() => {
+            if (clickCount >= maxClicks) {
+                loseGame(); // Trigger game over if clicks exceed max
+            }
+        }, 1000); // Check every second
+    </script>
+</body>
+</html>

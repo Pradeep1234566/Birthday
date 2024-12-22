@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Celebration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+        .container {
+            margin-top: 10px;
+        }
+        .birthday-message {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .gift-hamper {
+            width: 100px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .hidden-message {
+            display: none;
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #d9534f;
+        }
+        .birthday-image {
+            width: 300px;
+            background-color: #fffacd;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .play-button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .play-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="birthday-message">Happy Birthday!</h1>
+        <img class="birthday-image" src="Images/Screenshot 2024-12-22 211044.png" alt="Birthday Cake">
+        <p>Wishing you all the best on your special day!</p>
+        <img class="gift-hamper" src="Images/gift_hamper.jpg" alt="Gift Hamper" onclick="showMessage()">
+        <p id="gift-message" class="hidden-message">HUCCHi karke</p>
+    </div>
+    <audio id="birthday-audio" loop autoplay>
+        <source src="Images/Happy Birthday To You _ Priyanka Muskan _ Bhojpuri Song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        // Automatically play the music when the page loads
+        window.onload = function() {
+            const audio = document.getElementById('birthday-audio');
+            audio.play(); // Start playing the audio as soon as the page loads
+        }
+
+        function showMessage() {
+            const message = document.getElementById('gift-message');
+            message.style.display = 'block';
+            setTimeout(() => {
+                window.location.href = 'game.html';
+            }, 2000); // Redirect to game.html after 2 seconds
+        }
+    </script>
+</body>
+</html>
