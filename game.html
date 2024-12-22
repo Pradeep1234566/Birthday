@@ -88,6 +88,8 @@
         
         let clickCount = 0;
         const maxClicks = 15;
+        let timer; // For the 10 seconds countdown
+        const countdownTime = 10 * 1000; // 10 seconds in milliseconds
 
         // Function to move the button to a random position slowly with a delay before the next move
         function moveButton() {
@@ -105,8 +107,14 @@
             button.style.top = `${randomY}px`;
         }
 
+        // Function to start the 10-second countdown
+        function startCountdown() {
+            timer = setTimeout(loseGame, countdownTime); // If not clicked within 10 seconds, lose
+        }
+
         // Function to handle winning the game
         function winGame() {
+            clearTimeout(timer); // Reset the countdown when the button is clicked
             clickCount++; // Increment click count
             if (clickCount >= maxClicks) {
                 loseGame(); // If clicks exceed max, user loses
@@ -143,16 +151,12 @@
                 setTimeout(() => {
                     moveButton();
                     moveDelay = false;
-                }, 150); // 800ms delay to give time for the player to click
+                }, 125); // 800ms delay to give time for the player to click
             }
         });
 
-        // Check if the user has clicked 15 times and display the lose message
-        setInterval(() => {
-            if (clickCount >= maxClicks) {
-                loseGame(); // Trigger game over if clicks exceed max
-            }
-        }, 1000); // Check every second
+        // Start the countdown when the game starts
+        startCountdown();
     </script>
 </body>
 </html>

@@ -10,16 +10,40 @@
             text-align: center;
             background-color: #f0f8ff;
             color: #333;
+            margin: 0;
+            padding: 0;
         }
         .container {
-            margin-top: 10px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Ensures elements wrap on smaller screens */
+        }
+        .left-side {
+            flex: 1;
+            text-align: left;
+        }
+        .right-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .birthday-message {
-            font-size: 2em;
+            font-size: 2.5em; /* Increased font size */
             margin-bottom: 20px;
         }
+        .birthday-image {
+            width: 600px; /* Adjusted size */
+            background-color: #fffacd;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
         .gift-hamper {
-            width: 100px;
+            width: 200px;
             cursor: pointer;
             margin-top: 20px;
         }
@@ -29,44 +53,63 @@
             margin-top: 20px;
             color: #d9534f;
         }
-        .birthday-image {
-            width: 300px;
-            background-color: #fffacd;
-            padding: 10px;
-            border-radius: 10px;
+        .press-message {
+            font-size: 2em; /* Increased font size */
+            margin-top: 10px;
+            color: #333;
+            font-weight: bold;
         }
         .play-button {
-            padding: 10px 20px;
-            font-size: 1em;
-            background-color: #007bff;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
             color: white;
-            border: none;
-            border-radius: 5px;
+            border: 2px solid #2575fc;
+            border-radius: 50px;
             cursor: pointer;
             margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         .play-button:hover {
-            background-color: #0056b3;
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            border-color: #6a11cb;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        .play-button:active {
+            transform: translateY(2px);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="birthday-message">Happy Birthday!</h1>
-        <img class="birthday-image" src="Images/Screenshot 2024-12-22 211044.png" alt="Birthday Cake">
-        <p>Wishing you all the best on your special day!</p>
-        <img class="gift-hamper" src="Images/gift_hamper.jpg" alt="Gift Hamper" onclick="showMessage()">
-        <p id="gift-message" class="hidden-message">HUCCHi karke</p>
+        <!-- Left Side: Birthday Image -->
+        <div class="left-side">
+            <h1 class="birthday-message">Happy Birthday!</h1>
+            <img class="birthday-image" src="Images/Screenshot 2024-12-22 211044.png" alt="Birthday Cake">
+            <p>Wishing you all the best on your special day!</p>
+        </div>
+        
+        <!-- Right Side: Gift Hamper and Play Button -->
+        <div class="right-side">
+            <img class="gift-hamper" src="Images/gift_hamper.jpg" alt="Gift Hamper" onclick="showMessage()">
+            <p id="gift-message" class="hidden-message">HUCCHi karke</p>
+            <p class="press-message">Press image for surprise!</p>
+            <button class="play-button" onclick="playAudio()">Play Birthday Song</button>
+        </div>
     </div>
-    <audio id="birthday-audio" loop autoplay>
-        <source src="Images/Happy Birthday To You _ Priyanka Muskan _ Bhojpuri Song.mp3" type="audio/mpeg">
+
+    <audio id="birthday-audio" loop>
+        <source src="Images/bd_song.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+
     <script>
-        // Automatically play the music when the page loads
-        window.onload = function() {
+        // Function to play the audio when the button is clicked
+        function playAudio() {
             const audio = document.getElementById('birthday-audio');
-            audio.play(); // Start playing the audio as soon as the page loads
+            audio.play(); // Start playing the audio when the button is clicked
         }
 
         function showMessage() {
